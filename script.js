@@ -19,7 +19,7 @@ window.onscroll = function () {
     navbar.style.top = "0";
   } else {
     // scroll ke bawah -> navbar ngilang
-    navbar.style.top = "-80px";
+    navbar.style.top = "-90px";
   }
   prevScroll = currentScroll;
 };
@@ -28,5 +28,32 @@ window.onscroll = function () {
 document.addEventListener("mousemove", function (e) {
   if (e.clientY < 50) {
     navbar.style.top = "0";
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const burger = document.getElementById("burger");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  // Ambil semua link di dalam menu mobile
+  const navLinks = mobileMenu.querySelectorAll("a");
+
+  if (burger && mobileMenu) {
+    // 1. Fungsi Toggle Menu (Buka/Tutup)
+    burger.addEventListener("click", function () {
+      // Menambahkan/menghapus class 'active' untuk menampilkan/menyembunyikan menu
+      mobileMenu.classList.toggle("active");
+    });
+
+    // 2. Tutup Menu saat Link Navigasi Diklik
+    // Penting agar menu tertutup setelah pengguna memilih tujuan
+    navLinks.forEach((link) => {
+      link.addEventListener("click", function () {
+        // Periksa apakah menu sedang terbuka sebelum menutupnya
+        if (mobileMenu.classList.contains("active")) {
+          mobileMenu.classList.remove("active");
+        }
+      });
+    });
   }
 });
